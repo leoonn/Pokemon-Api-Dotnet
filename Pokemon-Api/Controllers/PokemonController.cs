@@ -60,7 +60,7 @@ namespace Pokemon_Api.Controllers
             PokemonsLists pokemons = JsonConvert.DeserializeObject<PokemonsLists>(responsePokemons);
             return pokemons;
         }
-        [HttpPost]
+        [HttpPost] //Desenvolvendo uma criação de pokemons personalizados
         [ValidateAntiForgeryToken]
         [Route("Pokemon/Create")]
         public async Task<Poke> CreateAsync(Poke pokemon)
