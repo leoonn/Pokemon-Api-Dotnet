@@ -18,6 +18,7 @@ namespace Pokemon_Api.Services
             _context = context;
         }
 
+        #region PokeApi
         public List<Abilities> GetPokemonsAbility(List<PokemonAbility> poke)
         {
             List<Abilities> namesAbilities = new List<Abilities>();
@@ -48,11 +49,43 @@ namespace Pokemon_Api.Services
             }
             return namesTypes;
         }
+        #endregion
 
+        #region Pokemons do usuario
         //GetAll
         public async Task<List<Poke>> GetAllClientPokemonsCreated()
         {
-            return await _context.Poke.ToListAsync();
+            return await _context.Poke.Include(obj => obj.Abilities).Include(obj => obj.Type).ToListAsync();
+        }
+
+        //GetById
+        public async Task<Poke> GetByIdClientPokemonsCreated(int id)
+        {
+            return await _context.Poke.Include(obj => obj.Abilities).Include(obj => obj.Type).FirstOrDefaultAsync(obj => obj.Id == id);
+        }
+        //GetBystring
+        public async Task<Poke> GetByNameClientPokemonsCreated(string name)
+        {
+            return await _context.Poke.Include(obj => obj.Abilities).Include(obj => obj.Type).FirstOrDefaultAsync(obj => obj.Name == name);
+        }
+        //Update
+        public async Task UpdateClientPokemonsCreated(Poke poke)
+        {
+            var hasany = await _context.Poke.AnyAsync(obj => obj.Id == poke.Id);
+            if (!hasany)
+            {
+                throw new Exception();
+            }
+            _context.Update(poke);
+           await _context.SaveChangesAsync();
+        }
+        //Delete
+        public async Task RemoveClientPokemonsCreated(long id)
+        {
+            var poke = await _context.Poke.FindAsync(id);
+            
+            _context.Poke.Remove(poke);
+           await _context.SaveChangesAsync();
         }
 
         //post
@@ -61,5 +94,6 @@ namespace Pokemon_Api.Services
            _context.Add(obj);
           await  _context.SaveChangesAsync();
         }
+        #endregion
     }
 }

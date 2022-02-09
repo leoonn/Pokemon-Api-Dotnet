@@ -23,6 +23,7 @@ namespace Pokemon_Api.Controllers
             this.pokeservices = pokeservices;
         }
 
+        #region Consumindo a PokeApi
         [HttpGet] //Get Poke For ID https://localhost:44393/pokemon/id/324
         [Route("Pokemon/Id/{id?}")]
         public async Task<Poke> IdAsync(int Id )
@@ -56,17 +57,51 @@ namespace Pokemon_Api.Controllers
             Stream receiveStream = response.GetResponseStream();
             StreamReader readStream = new StreamReader(receiveStream);
             string responsePokemons = readStream.ReadToEnd();
-            
             PokemonsLists pokemons = JsonConvert.DeserializeObject<PokemonsLists>(responsePokemons);
             return pokemons;
         }
+        #endregion
+
+        #region Crud Pokemons do usuario
         [HttpPost] //Desenvolvendo uma criação de pokemons personalizados
-        [ValidateAntiForgeryToken]
         [Route("Pokemon/Create")]
         public async Task<Poke> CreateAsync(Poke pokemon)
         {
           await pokeservices.InsertClientPokemonsCreated(pokemon);
             return pokemon;
         }
+
+        [HttpGet] 
+        [Route("Pokemon/GetMyPokes")]
+        public async Task<List<Poke>> GetMyPokesAsync()
+        {
+            return await pokeservices.GetAllClientPokemonsCreated();
+        }
+        [HttpGet]
+        [Route("Pokemon/GetMyPokesId/{id}")]
+        public async Task<Poke> GetMyPokesIdAsync(int id)
+        {
+            return await pokeservices.GetByIdClientPokemonsCreated(id);
+        }
+        [HttpGet]
+        [Route("Pokemon/GetMyPokesName/{name}")]
+        public async Task<Poke> GetMyPokesNameAsync(string name)
+        {
+            return await pokeservices.GetByNameClientPokemonsCreated(name);
+        }
+        [HttpPut]
+        [Route("Pokemon/MyPokeEdit")]
+        public async Task<Poke> MyPokeEditAsync(Poke poke)
+        {
+             await pokeservices.UpdateClientPokemonsCreated(poke);
+            return poke;
+        }
+        [HttpPost]
+        [Route("Pokemon/MyPokeDelete/{id}")]
+        public async Task MyPokeDeleteAsync(long id)
+        {
+            await pokeservices.RemoveClientPokemonsCreated(id);
+        }
+        #endregion
     }
 }
