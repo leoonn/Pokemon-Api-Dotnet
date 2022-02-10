@@ -78,13 +78,13 @@ namespace Pokemon_Api.Controllers
             return await pokeservices.GetAllClientPokemonsCreated();
         }
         [HttpGet]
-        [Route("Pokemon/GetMyPokesId/{id}")]
+        [Route("Pokemon/GetMyPokes/{id}")]
         public async Task<Poke> GetMyPokesIdAsync(int id)
         {
             return await pokeservices.GetByIdClientPokemonsCreated(id);
         }
         [HttpGet]
-        [Route("Pokemon/GetMyPokesName/{name}")]
+        [Route("Pokemon/GetMyPokes/poke:{name}")]
         public async Task<Poke> GetMyPokesNameAsync(string name)
         {
             return await pokeservices.GetByNameClientPokemonsCreated(name);
@@ -101,6 +101,18 @@ namespace Pokemon_Api.Controllers
         public async Task MyPokeDeleteAsync(long id)
         {
             await pokeservices.RemoveClientPokemonsCreated(id);
+        }
+        [HttpPost]
+        [Route("Pokemon/MyPokeDeleteAbillitie/{id}")]
+        public async Task MyPokeDeleteAbillitieAsync(int id)
+        {
+            await pokeservices.RemoveAbillitiesClientPokemonsCreated(id);
+        }
+        [HttpPost]
+        [Route("Pokemon/MyPokeDeleteType/{id}")]
+        public async Task MyPokeDeleteTypeAsync(int id)
+        {
+            await pokeservices.RemoveTypeClientPokemonsCreated(id);
         }
         #endregion
     }

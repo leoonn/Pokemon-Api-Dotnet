@@ -77,15 +77,35 @@ namespace Pokemon_Api.Services
                 throw new Exception();
             }
             _context.Update(poke);
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
-        //Delete
+        //Delete pokemon
         public async Task RemoveClientPokemonsCreated(long id)
         {
             var poke = await _context.Poke.FindAsync(id);
+
             
             _context.Poke.Remove(poke);
            await _context.SaveChangesAsync();
+        }
+        //Delete PokemonAbillities
+        public async Task RemoveAbillitiesClientPokemonsCreated(int id)
+        {
+            var poke = await _context.Abilities.FindAsync(id);
+
+
+            _context.Abilities.Remove(poke);
+            await _context.SaveChangesAsync();
+        }
+
+        //Delete PokemonType
+        public async Task RemoveTypeClientPokemonsCreated(int id)
+        {
+            var poke = await _context.TypesPokemon.FindAsync(id);
+
+
+            _context.TypesPokemon.Remove(poke);
+            await _context.SaveChangesAsync();
         }
 
         //post

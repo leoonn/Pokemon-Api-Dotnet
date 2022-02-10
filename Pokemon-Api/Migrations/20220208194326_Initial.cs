@@ -40,7 +40,8 @@ namespace Pokemon_Api.Migrations
                         column: x => x.PokeId,
                         principalTable: "Poke",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onUpdate: ReferentialAction.Cascade,
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,7 +61,8 @@ namespace Pokemon_Api.Migrations
                         column: x => x.PokeId,
                         principalTable: "Poke",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onUpdate: ReferentialAction.Cascade,
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

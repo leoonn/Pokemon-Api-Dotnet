@@ -55,29 +55,9 @@ namespace Pokemon_Api
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                #region Routes for PokeApi
-                endpoints.MapControllerRoute(name: "create",
-                pattern: "{controller=Pokemon}/{action=Create}");
-                endpoints.MapControllerRoute(name: "name",
-                pattern: "{controller=Pokemon}/{action=Name}/{name?}");
-                endpoints.MapControllerRoute(name: "getall",
-                pattern: "{controller=Pokemon}/{action=GetAll}/{limit}/{offset}");
+            {              
                 endpoints.MapControllerRoute(name: "default",
                                pattern: "{controller=Home}/{action=Index}/{id?}");
-                #endregion
-                #region Routes for ClientsPoke
-                endpoints.MapControllerRoute(name: "getmypokes",
-                              pattern: "{controller=Pokemon}/{action=GetMyPokes}");
-                endpoints.MapControllerRoute(name: "getmypokesbyid",
-                              pattern: "{controller=Pokemon}/{action=GetMyPokesId}/{id}");
-                endpoints.MapControllerRoute(name: "getmypokesbyname",
-                              pattern: "{controller=Pokemon}/{action=GetMyPokesName}/{name}");
-                endpoints.MapControllerRoute(name: "mypokeedit",
-                              pattern: "{controller=Pokemon}/{action=MyPokeEdit}");
-                endpoints.MapControllerRoute(name: "mypokedelete",
-                              pattern: "{controller=Pokemon}/{action=MyPokeDelete}/{id}");
-                #endregion
 
             });
             
